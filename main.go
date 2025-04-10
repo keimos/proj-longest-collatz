@@ -4,10 +4,20 @@ import (
 	"collatz/collatz"
 	"fmt"
 	"log"
+	"os"
+	"strconv"
 )
 
 func main() {
-	limit := 1000000
+	if len(os.Args) < 2 {
+		log.Fatal("Usage: go run main.go <limit>")
+	}
+
+	limit, err := strconv.Atoi(os.Args[1])
+	if err != nil {
+		log.Fatalf("Invalid limit: %v. Please provide an integer >= 2.", os.Args[1])
+
+	}
 
 	startNumber, length, err := collatz.LongestSequence(limit)
 	if err != nil {
